@@ -8,6 +8,6 @@ import Foundation
 
 extension Int {
     func asNumberString() -> String {
-        return String(format: "%.2f", self)
+        return String(self)
     }
 }

@@ -52,5 +52,5 @@ struct CoinRowView: View {
 }
 
 #Preview {
-    CoinRowView(coin: .coin, showHoldingsColumn: true)
+    CoinRowView(coin: dev.coin, showHoldingsColumn: true)
 }

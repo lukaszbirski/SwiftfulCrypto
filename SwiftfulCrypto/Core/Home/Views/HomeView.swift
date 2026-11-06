@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     @State private var showPortfolio: Bool = false
     
     var body: some View {
@@ -18,6 +19,19 @@ struct HomeView: View {
             
             VStack {
                 homeHeader
+                columnTitles
+
+                if !showPortfolio {
+                    allCoinsList
+                        .transition(.move(edge: .leading))
+                }
+                
+                if showPortfolio {
+                    portfolioCoinsList
+                        .transition(.move(edge: .trailing))
+                }
+
+                
                 Spacer(minLength: 0)
             }
         }
@@ -26,6 +40,7 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environmentObject(dev.homeViewModel)
 }
 
 extension HomeView {
@@ -52,6 +67,43 @@ extension HomeView {
                     }
                 }
         }
+        .padding(.horizontal)
+    }
+    
+    private var allCoinsList: some View {
+        List {
+            ForEach(homeViewModel.allCoins) { coin in
+                CoinRowView(coin: coin, showHoldingsColumn: false)
+                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+            }
+        }
+        .listStyle(PlainListStyle())
+    }
+    
+    private var portfolioCoinsList: some View {
+        List {
+            ForEach(homeViewModel.allCoins) { coin in
+                CoinRowView(coin: coin, showHoldingsColumn: true)
+                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+            }
+        }
+        .listStyle(PlainListStyle())
+    }
+    
+    private var columnTitles: some View {
+        HStack {
+            Text("Coin")
+            Spacer()
+            if showPortfolio {
+                Text("Holdings")
+            }
+            Text("Price")
+                .containerRelativeFrame(.horizontal) { width, _ in
+                    width / 3.5
+                }
+        }
+        .font(.caption)
+        .foregroundColor(Color.theme.secondaryText)
         .padding(.horizontal)
     }
 }
