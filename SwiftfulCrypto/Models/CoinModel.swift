@@ -15,7 +15,7 @@ struct CoinModel: Identifiable, Codable {
     let currentPrice: Double
     let marketCapRank: Double?
     let prices: HistoricPrices?
-    let priceChangePercentage: Double
+    let priceChangePercentage: Double?
     let lastUpdated: String?
     let currentHoldings: Double?
     

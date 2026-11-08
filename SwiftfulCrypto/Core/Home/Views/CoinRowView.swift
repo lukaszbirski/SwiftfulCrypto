@@ -13,7 +13,7 @@ struct CoinRowView: View {
     let showHoldingsColumn: Bool
     
     private var priceChangeColor: Color {
-        coin.priceChangePercentage >= 0 ? Color.theme.green : Color.theme.red
+        (coin.priceChangePercentage ?? 0) >= 0 ? Color.theme.green : Color.theme.red
     }
     
     var body: some View {
@@ -40,7 +40,7 @@ struct CoinRowView: View {
                 Text(coin.currentPrice.asCurrencyWith6Decimals())
                     .bold()
                     .foregroundColor(Color.theme.accent)
-                Text(coin.priceChangePercentage.asPercentString())
+                Text(coin.priceChangePercentage?.asPercentString() ?? "")
                     .foregroundColor(priceChangeColor)
             }
             .containerRelativeFrame(.horizontal) { width, _ in
