@@ -43,7 +43,7 @@ struct CoinRowView: View {
                 Text(coin.priceChangePercentage?.asPercentString() ?? "")
                     .foregroundColor(priceChangeColor)
             }
-            .containerRelativeFrame(.horizontal) { width, _ in
+            .containerRelativeFrame(.horizontal, alignment: .trailing) { width, _ in
                 width / 3.5
             }
         }
